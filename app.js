@@ -9,6 +9,7 @@ const koaJwt = require('koa-jwt')
 
 const index = require('./routes/index')
 const users = require('./routes/users')
+const project = require('./routes/project')
 const config = require('./config')
 const verifyToken = require('./lib/token')
 const miHttpError = require('./mi-http-error')
@@ -24,7 +25,7 @@ app.use(bodyparser({
 }))
 app.use(json())
 app.use(logger())
-app.use(views(__dirname + '/statics/group-promote-static', {
+app.use(views(__dirname + '/statics/system-scientific', {
     extension: 'html'
 }))
 
@@ -62,7 +63,8 @@ app.use(async (ctx, next) => {
 // routes
 app.use(index.routes(), index.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
-app.use(require('koa-static')(__dirname + '/statics/group-promote-static'))
+app.use(project.routes(), project.allowedMethods())
+app.use(require('koa-static')(__dirname + '/statics/system-scientific'))
 
 
 // error-handling

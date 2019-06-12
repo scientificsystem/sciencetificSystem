@@ -5,8 +5,8 @@ const Signature = require(`../lib/signature`)
 class User {
 
     constructor(info) {
-        console.log(info, get(info, 'userName'))
-        this.username = get(info, 'userName')                   //用户账号
+        console.log(info, get(info, 'username'))
+        this.username = get(info, 'username')                   //用户账号
         this.userpwd = get(info, 'password')                       //密码
         this.userage = get(info, 'password')
         this.signpassword = get(info, 'password')                     //年龄

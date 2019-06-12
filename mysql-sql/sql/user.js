@@ -7,7 +7,6 @@ const getUser = info => {
     forOwn(info, (value, key) => {
         values += `&&${key}='${value}'`
     })
-    console.log(`select * from ${TableName} where ${trimStart(values, '&&')}`)
     return query(`select * from ${TableName} where ${trimStart(values, '&&')}`, info)
 }
 

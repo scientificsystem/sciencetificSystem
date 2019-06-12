@@ -10,7 +10,6 @@ const { HAS_NO_LOGIN, HAS_NO_USER, USER_EXIST, USER_INFO_ERROR, AXIOS_SUCCESS } 
 module.exports.getUser = async (info) => {
     const user = new User();
     let res = await Sql.select(info)
-    console.log(user, res)
     return res
 }
 
@@ -22,7 +21,7 @@ module.exports.register = async (info) => {
     if (size(res) > 0) {
         return Errors(USER_EXIST, '当前用户名已存在')
     } else {
-        let res1 = await Sql.addUser({ username: user.username, password: user.signPassword })
+        let res1 = await Sql.addUser({ username: user.username, password: user.password })
 
         if (size(res1) > 0) {
             return Success(AXIOS_SUCCESS, '')
@@ -35,15 +34,15 @@ module.exports.register = async (info) => {
 module.exports.login = async info => {
     const user = new User(info);
     user.signPassword = info.password
-    let res = await Sql.getUser({ username: user.username, password: user.signPassword })
+    let res = await Sql.getUser({ username: user.username, password: user.userpwd })
     if (size(res) > 0) {
         const token = jsonwebtoken.sign({
             username: res[0].username,
             id: res[0].id
         }, Config.secret.sign, { expiresIn: '2h' });
-        console.log(token)
         return Success(AXIOS_SUCCESS, {
-            token
+            token,
+            ...res[0]
         })
     } else {
         return Errors(USER_INFO_ERROR, '用户名或密码错误')
