@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "mongofb": "^1.0.1",
-    "mongoose": "^5.4.0",
+    "mongoose": "^5.7.5",
     "nodemon": "^1.8.1"
   }
 }
